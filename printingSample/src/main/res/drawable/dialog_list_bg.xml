@@ -1,0 +1,11 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true" android:drawable="@drawable/dashboard_button_bg_on"/>
+    <item android:state_pressed="true" android:drawable="@drawable/dashboard_button_bg_on" />
+    <item android:state_selected="true" android:drawable="@drawable/dashboard_button_bg_on" />
+
+    <item>
+        <shape android:shape="rectangle" >
+            <solid android:color="#ffffff" />
+        </shape>
+    </item>
+</selector>

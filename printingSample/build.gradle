@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    signingConfigs {
+        customDebug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('../sign/debug.keystore')
+            storePassword 'android'
+        }
+    }
+
+    compileSdkVersion 23
+    buildToolsVersion "22.0.1"
+    defaultConfig {
+        applicationId "com.dynamixsoftware.printingsample"
+        minSdkVersion 8
+        targetSdkVersion 23
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+        customDebug {
+            signingConfig signingConfigs.debug
+            debuggable true
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile files('libs/IntentAPI.jar')
+    compile project(':printingSdk')
+}

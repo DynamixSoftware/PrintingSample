@@ -1,0 +1,16 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true" android:drawable="@drawable/dashboard_button_bg_on"/>
+    <item android:state_pressed="true" android:drawable="@drawable/dashboard_button_bg_on" />
+    <item android:state_selected="true" android:drawable="@drawable/dashboard_button_bg_on" />
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle" >
+            <solid android:color="#eeeeee" />
+        </shape>
+    </item>
+    <!-- item android:state_enabled="true">
+        <shape android:shape="rectangle" >
+            <solid android:color="#ffffffff" />
+        </shape>
+    </item -->
+    <item android:state_enabled="true" android:drawable="@drawable/list_bg_off" />
+</selector>
