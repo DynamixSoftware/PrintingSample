@@ -1,1 +1,1 @@
-include ':printingSample', ':printingSdk'
+include ':printingSample'

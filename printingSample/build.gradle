@@ -35,6 +35,6 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile files('libs/IntentAPI.jar')
-    compile project(':printingSdk')
+    compile 'com.dynamixsoftware.intentapi:intentAPI:7.4.2'
+    compile 'com.dynamixsoftware.printingsdk:printingSDK:7.4.2'
 }
