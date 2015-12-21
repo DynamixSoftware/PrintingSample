@@ -30,6 +30,7 @@
     <string name="button_intentapi_printijob">Print with yours rendering without PH UI</string>
     <string name="button_intentapi_print_image_PH">Print test image with PH rendering without PH UI</string>
     <string name="button_intentapi_print_file_PH">Print test file with PH rendering without PH UI</string>
+    <string name="button_intentapi_print_file_PH_pass">Print protected test file with PH rendering without PH UI</string>
     <string name="button_intentapi_change_image_options">Change image options</string>
     <string name="button_intentapi_change_files_options">Change files options</string>
     

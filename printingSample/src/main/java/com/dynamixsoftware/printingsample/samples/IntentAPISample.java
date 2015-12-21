@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
@@ -50,7 +51,7 @@ public class IntentAPISample {
 	public IntentAPISample(Activity activity) {
 		context = activity;
 	}
-	
+
 	public void startService() {
 		if (intentAPI == null || !intentAPI.isServiceRunning()) {
 			intentAPI = new IntentAPI((Activity) context);
@@ -70,20 +71,25 @@ public class IntentAPISample {
 					}
 
 					@Override
-					public void onFileOpen(int arg0, int arg1) {
-						Log.d(TAG, "onFileOpen progress " + arg0 + "; finished " + (arg1 == 1 ? true : false));
+					public void onFileOpen(int progress, int finished) {
+						Log.d(TAG, "onFileOpen progress " + progress + "; finished " + (finished == 1));
 					}
 
 					@Override
-					public void onLibraryDownload(int arg0)
-							throws RemoteException {
-						Log.d(TAG, "onLibraryDownload progress " + arg0);
+					public void onLibraryDownload(int progress) throws RemoteException {
+						Log.d(TAG, "onLibraryDownload progress " + progress);
 					}
 
 					@Override
-					public boolean onRenderLibraryCheck(boolean arg0, boolean arg1) throws RemoteException {
-						Log.d(TAG, "onRenderLibraryCheck render library " + arg0 + "; fonts library " + arg1);
+					public boolean onRenderLibraryCheck(boolean renderLibrary, boolean fontLibrary) throws RemoteException {
+						Log.d(TAG, "onRenderLibraryCheck render library " + renderLibrary + "; fonts library " + fontLibrary);
 						return true;
+					}
+
+					@Override
+					public String onPasswordRequired() throws RemoteException {
+						Log.d(TAG, "onPasswordRequired");
+						return "password";
 					}
 
 				});
@@ -453,24 +459,40 @@ public class IntentAPISample {
 			out.close();
 			out = null;
 
-			intentAPI.print("PrintingSample", "image/png", Uri.fromFile(f));
+			if (filename.endsWith(".png")) {
+				intentAPI.print("PrintingSample", "image/png", Uri.fromFile(f));
+			} else if (filename.endsWith(".doc")) {
+				intentAPI.print("PrintingSample", "application/ms-word", Uri.fromFile(f));
+			} else if (filename.endsWith(".pdf")) {
+				intentAPI.print("PrintingSample", "application/pdf", Uri.fromFile(f));
+			}
 		} else {
 			serviceStopped();
 		}
 	}
 	
 	public void changeImageOptions() throws RemoteException {
+		Random random = new Random();
 		List<PrintHandOption> imagesOptions = intentAPI.getImagesOptions();
 		for (PrintHandOption phOption : imagesOptions) {
 			Log.d(TAG, "Current option " + phOption.getName() + " value is " + phOption.getValue());
-			for (String phOptionValue : phOption.getValuesList()) {
-				if (!phOption.getValue().equals(phOption.getValue())) {
-					phOption.setValue(phOptionValue);
-					break;
-				}
-			}
+			List<String> valuesList = phOption.getValuesList();
+			phOption.setValue(valuesList.get(random.nextInt(valuesList.size())));
 			Log.d(TAG, "Changed option " + phOption.getName() + " value is " + phOption.getValue());
 		}
+		intentAPI.setImagesOptions(imagesOptions);
+	}
+
+	public void changeFileOptions() throws RemoteException {
+		Random random = new Random();
+		List<PrintHandOption> fileOptions = intentAPI.getFilesOptions();
+		for (PrintHandOption phOption : fileOptions) {
+			Log.d(TAG, "Current option " + phOption.getName() + " value is " + phOption.getValue());
+			List<String> valuesList = phOption.getValuesList();
+			phOption.setValue(valuesList.get(random.nextInt(valuesList.size())));
+			Log.d(TAG, "Changed option " + phOption.getName() + " value is " + phOption.getValue());
+		}
+		intentAPI.setFilesOptions(fileOptions);
 	}
 	
 }

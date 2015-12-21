@@ -37,13 +37,13 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		}
 		
 		@Override
-		public void sendingPage(int arg0, int arg1) throws RemoteException {
-			Log.d(TAG, "sendingPage number " + arg0 + ", progress " + arg1);
+		public void sendingPage(int pageNum, int progress) throws RemoteException {
+			Log.d(TAG, "sendingPage number " + pageNum + ", progress " + progress);
 		}
 		
 		@Override
-		public void preparePage(int arg0) throws RemoteException {
-			Log.d(TAG, "preparePage number " +  arg0);	
+		public void preparePage(int pageNum) throws RemoteException {
+			Log.d(TAG, "preparePage number " +  pageNum);
 		}
 		
 		@Override
@@ -59,11 +59,11 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		}
 		
 		@Override
-		public void finish(Result arg0, int arg1) throws RemoteException {
-			Log.d(TAG, "finish, Result " + arg0
-					+ "; Result type " + arg0.getType()
-					+ "; Result message " + arg0.getType().getMessage()
-					+ "; pages printed " + arg1);
+		public void finish(Result result, int pagesPrinted) throws RemoteException {
+			Log.d(TAG, "finish, Result " + result
+					+ "; Result type " + result.getType()
+					+ "; Result message " + result.getType().getMessage()
+					+ "; pages printed " + pagesPrinted);
 		}
 	};
 	
@@ -147,11 +147,11 @@ public class IntentAPIFragment extends PlaceholderFragment {
 						Log.d(TAG, "activateOnline finish " + arg0);
 					}
 					
-				});;
+				});
 			}
 		});
 		buttonsHolder.addView(activateOnline);
-		
+
 		Button setCallback = new Button(context);
 		setCallback.setText(R.string.button_intentapi_setcallback);
 		setCallback.setOnClickListener(new OnClickListener() {
@@ -306,6 +306,51 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(changeImageOptions);
+
+		Button printFileWithoutPHUI = new Button(context);
+		printFileWithoutPHUI.setText(R.string.button_intentapi_print_file_PH);
+		printFileWithoutPHUI.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					intentAPISample.printWithoutUI("What is PrintHand.doc");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		buttonsHolder.addView(printFileWithoutPHUI);
+
+		Button printFileWithoutPHUIPass = new Button(context);
+		printFileWithoutPHUIPass.setText(R.string.button_intentapi_print_file_PH_pass);
+		printFileWithoutPHUIPass.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					intentAPISample.printWithoutUI("What is PrintHand.pdf");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		buttonsHolder.addView(printFileWithoutPHUIPass);
+
+		Button changeFileOptions = new Button(context);
+		changeFileOptions.setText(R.string.button_intentapi_change_files_options);
+		changeFileOptions.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					intentAPISample.changeFileOptions();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		buttonsHolder.addView(changeFileOptions);
 		
 		return root;
 	}
