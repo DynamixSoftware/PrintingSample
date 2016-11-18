@@ -1,9 +1,5 @@
 package com.dynamixsoftware.printingsample.samples;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -16,7 +12,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -41,6 +36,10 @@ import com.dynamixsoftware.printingsdk.PrintingSdk;
 import com.dynamixsoftware.printingsdk.Result;
 import com.dynamixsoftware.printingsdk.SmbFile;
 import com.dynamixsoftware.printingsdk.TransportType;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceSample {
 	
@@ -270,7 +269,16 @@ public class ServiceSample {
 			}
 		}
 	}
-	
+
+   private boolean checkService() {
+      if (printingSdk != null || onServiceDisconnected) {
+         return true;
+      } else {
+         return false;
+      }
+   }
+
+
 	public void setLicense(String license) {
 		if (printingSdk == null || onServiceDisconnected) {
 			Log.d(TAG, "Start service first");
@@ -500,7 +508,7 @@ public class ServiceSample {
 			} else {
 				// Lets try to setup the first one.
 				printer = listPrinters.get(0);
-				Log.d(TAG, "Try to seup printer " + printer.getName());
+				Log.d(TAG, "Try to setup printer " + printer.getName());
 				if (listDriversSearchEntry == null && listDriversSearchEntry.get(0) != null) {
 					Log.d(TAG, "Find drivers for the printer first");
 				} else {

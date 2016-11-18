@@ -100,7 +100,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button startService = new Button(context);
 		startService.setText(R.string.button_intentapi_startservice);
 		startService.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				intentAPISample.startService();
@@ -111,7 +111,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button checkPremium = new Button(context);
 		checkPremium.setText("Check Premium");
 		checkPremium.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				try {
@@ -126,27 +126,27 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button activateOnline = new Button(context);
 		activateOnline.setText("Activate online");
 		activateOnline.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// set activation key here
 				intentAPISample.setLicense("", new ISetLicenseCallback.Stub() {
-					
+
 					@Override
 					public void start() throws RemoteException {
 						Log.d(TAG, "activateOnline start");
 					}
-					
+
 					@Override
 					public void serverCheck() throws RemoteException {
 						Log.d(TAG, "activateOnline serverCheck");
 					}
-					
+
 					@Override
 					public void finish(Result arg0) throws RemoteException {
 						Log.d(TAG, "activateOnline finish " + arg0);
 					}
-					
+
 				});
 			}
 		});
@@ -155,7 +155,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button setCallback = new Button(context);
 		setCallback.setText(R.string.button_intentapi_setcallback);
 		setCallback.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				try {
@@ -170,7 +170,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button setupPrinter = new Button(context);
 		setupPrinter.setText(R.string.button_intentapi_setup);
 		setupPrinter.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				intentAPISample.setupCurrentPrinter();
@@ -181,7 +181,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button changeOptions = new Button(context);
 		changeOptions.setText(R.string.button_intentapi_changeoptions);
 		changeOptions.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				intentAPISample.changeOptions();
@@ -192,7 +192,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button getCurrentPrinter = new Button(context);
 		getCurrentPrinter.setText(R.string.button_intentapi_getcurrentprinter);
 		getCurrentPrinter.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				try {
@@ -212,7 +212,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button printImage = new Button(context);
 		printImage.setText(R.string.button_intentapi_printimage);
 		printImage.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				try {
@@ -231,7 +231,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button printFile = new Button(context);
 		printFile.setText(R.string.button_intentapi_printdoc);
 		printFile.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				try {
@@ -246,7 +246,27 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(printFile);
-		
+
+		Button showFilePreview = new Button(context);
+		showFilePreview.setText(R.string.button_intentapi_showfilepreview);
+		showFilePreview.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					PrintingSample.saveTestFile(getActivity());
+				} catch (Exception e) {
+					Log.d(TAG, "Failed to save test image");
+					e.printStackTrace();
+					return;
+				}
+				String filePath = "file://" + getActivity().getExternalCacheDir().getAbsolutePath() + "/" + PrintingSample.TEST_FILE_NAME;
+				Uri uri = Uri.parse(filePath);
+				intentAPISample.showFilesPreview(uri, "application/msword", 0);
+			}
+		});
+		buttonsHolder.addView(showFilePreview);
+
 		Button printDocument = new Button(context);
 		printDocument.setText(R.string.button_intentapi_printidoc);
 		printDocument.setOnClickListener(new OnClickListener() {

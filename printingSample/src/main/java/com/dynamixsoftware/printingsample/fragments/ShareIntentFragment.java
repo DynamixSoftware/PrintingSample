@@ -14,6 +14,7 @@ import com.dynamixsoftware.printingsample.samples.ShareIntentSample;
 public class ShareIntentFragment extends PlaceholderFragment {
 	
 	private ShareIntentSample shareIntent;
+	private String activationKey = "";
 	
 	/**
 	 * Returns a new instance of this fragment.
@@ -115,6 +116,31 @@ public class ShareIntentFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(shareLocalWebPage);
+
+		// if true error dialog will be show to user
+		final boolean showErrorMessage = false;
+
+		Button activateLicense = new Button(context);
+		activateLicense.setText(R.string.button_activate_license);
+		activateLicense.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				shareIntent.setLicense(activationKey, showErrorMessage);
+			}
+		});
+		buttonsHolder.addView(activateLicense);
+
+		Button activateLicenseReturn = new Button(context);
+		activateLicenseReturn.setText(R.string.button_activate_license_return);
+		activateLicenseReturn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				shareIntent.setLicenseReturn(activationKey, getActivity(), showErrorMessage);
+			}
+		});
+		buttonsHolder.addView(activateLicenseReturn);
 		
 		return root;
 	}

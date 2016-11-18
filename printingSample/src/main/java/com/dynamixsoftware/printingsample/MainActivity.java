@@ -114,8 +114,19 @@ public class MainActivity extends ActionBarActivity implements
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
-		Log.d(TAG, "resultCode " + resultCode);
+
+		switch (resultCode) {
+			case PrintingSample.LICENSE_ACTIVATION_SUCCESS:
+				Log.d(TAG, getString(R.string.message_license_activation_success) + "; resultCode " + resultCode);
+				break;
+			case PrintingSample.LICENSE_ACTIVATION_ERROR:
+				Log.d(TAG, getString(R.string.message_license_activation_error) + "; resultCode " + resultCode);
+				break;
+			default:
+				Log.d(TAG, "resultCode " + resultCode);
+				break;
+		}
+
 		if (data != null) {
 			Log.d(TAG, "result " + data.getStringExtra("result"));
 			Log.d(TAG, "resultString " + data.getStringExtra("resultString"));

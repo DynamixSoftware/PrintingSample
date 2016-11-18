@@ -1,13 +1,5 @@
 package com.dynamixsoftware.printingsample.samples;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-import java.util.Random;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -33,7 +25,14 @@ import com.dynamixsoftware.intentapi.IServiceCallback;
 import com.dynamixsoftware.intentapi.ISetLicenseCallback;
 import com.dynamixsoftware.intentapi.IntentAPI;
 import com.dynamixsoftware.intentapi.PrintHandOption;
-import com.dynamixsoftware.intentapi.Result;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+import java.util.Random;
 
 public class IntentAPISample {
 	
@@ -98,9 +97,18 @@ public class IntentAPISample {
 			}
 		}
 	}
+
+	private boolean checkService() {
+		if (intentAPI != null && intentAPI.isServiceRunning() && connected) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	
 	public void setCallback(IPrintCallback callback) throws RemoteException {
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			intentAPI.setCallback(callback);
 		} else {
 			serviceStopped();
@@ -108,7 +116,7 @@ public class IntentAPISample {
 	}
 	
 	public void checkPremium() throws RemoteException {
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			Log.d(TAG, "checkPremium " + intentAPI.checkPremium());
 		} else {
 			serviceStopped();
@@ -116,7 +124,7 @@ public class IntentAPISample {
 	}
 	
 	public void print(Uri uri, String contentType, String description) {
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			intentAPI.print(uri, contentType, description);
 		} else {
 			serviceStopped();
@@ -124,7 +132,7 @@ public class IntentAPISample {
 	}
 	
 	public void setupCurrentPrinter() {
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			intentAPI.setupCurrentPrinter();
 		} else {
 			serviceStopped();
@@ -132,7 +140,7 @@ public class IntentAPISample {
 	}
 	
 	public IPrinterInfo getCurrentPrinter() throws RemoteException {
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			return intentAPI.getCurrentPrinter();
 		} else {
 			serviceStopped();
@@ -141,7 +149,7 @@ public class IntentAPISample {
 	}
 	
 	public void changeOptions() {
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			intentAPI.changePrinterOptions();
 		} else {
 			serviceStopped();
@@ -149,7 +157,7 @@ public class IntentAPISample {
 	}
 	
 	public void setLicense(String licenseID, ISetLicenseCallback licenseCallback) {
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			intentAPI.setLicense(licenseID, licenseCallback);
 		} else {
 			serviceStopped();
@@ -248,7 +256,7 @@ public class IntentAPISample {
 			}
 		};
 
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			intentAPI.print(job, 1);
 		} else {
 			serviceStopped();
@@ -432,7 +440,7 @@ public class IntentAPISample {
 			}
 		};
 	
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			intentAPI.print(document);
 		} else {
 			serviceStopped();
@@ -440,7 +448,7 @@ public class IntentAPISample {
 	}
 
 	public void printWithoutUI(String filename) throws RemoteException, IOException {
-		if (intentAPI.isServiceRunning() && connected) {
+		if (checkService()) {
 			AssetManager assetMgr = context.getAssets();
 			InputStream in = assetMgr.open(filename);
 			OutputStream out = null;
@@ -493,6 +501,14 @@ public class IntentAPISample {
 			Log.d(TAG, "Changed option " + phOption.getName() + " value is " + phOption.getValue());
 		}
 		intentAPI.setFilesOptions(fileOptions);
+	}
+
+	public void showFilesPreview(Uri uri, String mimeType, int pageNumber) {
+		try {
+			intentAPI.showFilePreview(uri, mimeType, pageNumber);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

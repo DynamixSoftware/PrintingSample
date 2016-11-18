@@ -7,7 +7,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 
 import com.dynamixsoftware.printingsample.MainActivity;
@@ -41,7 +40,7 @@ public class ShareIntentSample {
 		
 		Uri uri = Uri.parse("file://" + context.getExternalCacheDir().getAbsolutePath() + "/" + PrintingSample.TEST_PAGE_NAME);
 		if (actionView) {
-			i.setDataAndType(uri, "image/png");			
+			i.setDataAndType(uri, "image/png");
 		} else {
 			i.putExtra(Intent.EXTRA_STREAM, uri);
 			i.setType("image/png");
@@ -107,7 +106,7 @@ public class ShareIntentSample {
 	 * @param actionView
 	 * @param requestCode
 	 */
-	public void shareImageReturn(boolean actionView, int requestCode) {		
+	public void shareImageReturn(boolean actionView, int requestCode) {
 		try {
 			PrintingSample.saveTestImage(context);
 		} catch (Exception e) {
@@ -121,7 +120,7 @@ public class ShareIntentSample {
 		
 		Uri uri = Uri.parse("file://" + context.getExternalCacheDir().getAbsolutePath() + "/" + PrintingSample.TEST_PAGE_NAME);
 		if (actionView) {
-			i.setDataAndType(uri, "image/png");			
+			i.setDataAndType(uri, "image/png");
 		} else {
 			i.putExtra(Intent.EXTRA_STREAM, uri);
 			i.setType("image/png");
@@ -259,11 +258,57 @@ public class ShareIntentSample {
 		}
 	}
 
+	public void setLicense(String activationKey, boolean showErrorMessage) {
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.putExtra(Intent.EXTRA_TEXT, activationKey);
+		i.putExtra("return", false);
+		i.putExtra("showErrorMessage", showErrorMessage);
+		i.setType("text/license");
+
+		i.setPackage(PrintingSample.PACKAGE_NAME_FREE);
+		try {
+			context.startActivity(i);
+			return;
+		} catch (ActivityNotFoundException e) {
+			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_FREE + " is not installed.");
+		}
+
+		i.setPackage(PrintingSample.PACKAGE_NAME_PREMIUM);
+		try {
+			context.startActivity(i);
+		} catch (ActivityNotFoundException e) {
+			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_PREMIUM + " is not installed.");
+		}
+	}
+
+	public void setLicenseReturn(String activationKey, Activity activity, boolean showErrorMessage) {
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.putExtra(Intent.EXTRA_TEXT, activationKey);
+		i.putExtra("return", true);
+		i.putExtra("showErrorMessage", showErrorMessage);
+		i.setType("text/license");
+
+		i.setPackage(PrintingSample.PACKAGE_NAME_FREE);
+		try {
+			activity.startActivityForResult(i, PrintingSample.LICENSE_RETURN);
+			return;
+		} catch (ActivityNotFoundException e) {
+			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_FREE + " is not installed.");
+		}
+
+		i.setPackage(PrintingSample.PACKAGE_NAME_PREMIUM);
+		try {
+			activity.startActivityForResult(i, PrintingSample.LICENSE_RETURN);
+		} catch (ActivityNotFoundException e) {
+			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_PREMIUM + " is not installed.");
+		}
+	}
+
 	/***
 	 * @return your html string
 	 */
 	private String loadHtmlString() {
-		String html = "";
+		String html = "http://printhand.com";
 		return html;
 	}
 }

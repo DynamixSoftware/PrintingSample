@@ -12,11 +12,13 @@ android {
     }
 
     compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "com.dynamixsoftware.printingsample"
-        minSdkVersion 8
+        minSdkVersion 9
         targetSdkVersion 23
+        versionName "1.2"
+        versionCode 3
     }
     buildTypes {
         release {
@@ -33,8 +35,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:23.0.1'
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.dynamixsoftware.intentapi:intentAPI:7.4.5'
-    compile 'com.dynamixsoftware.printingsdk:printingSDK:7.4.5'
+    compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.dynamixsoftware.intentapi:intentAPI:9.5.0'
+    compile 'com.dynamixsoftware.printingsdk:printingSDK:9.5.0'
 }

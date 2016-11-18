@@ -7,7 +7,7 @@
     
     <string name="title_section1">SHARE Intent</string>
     <string name="title_section2">Intent API</string>
-    <string name="title_section3">PrintService</string>
+    <string name="title_section3">PrintingSDK</string>
     
     <string name="action_settings">Settings</string>
     
@@ -18,6 +18,8 @@
     <string name="button_share_file">Share file</string>
     <string name="button_share_webpage">Share web page</string>
     <string name="button_share_webpage_string">Share web page as string</string>
+    <string name="button_activate_license">Activate license</string>
+    <string name="button_activate_license_return">Activate license with return</string>
     
     <string name="button_intentapi_startservice">Start Intent API service</string>
     <string name="button_intentapi_setup">Setup printer</string>
@@ -26,8 +28,9 @@
     <string name="button_intentapi_getcurrentprinter">Get current printer</string>
     <string name="button_intentapi_printimage">Print image</string>
     <string name="button_intentapi_printdoc">Print file</string>
-    <string name="button_intentapi_printidoc">Print with yours rendering</string>
-    <string name="button_intentapi_printijob">Print with yours rendering without PH UI</string>
+    <string name="button_intentapi_showfilepreview">Show file preview</string>
+    <string name="button_intentapi_printidoc">Print with your rendering</string>
+    <string name="button_intentapi_printijob">Print with your rendering without PH UI</string>
     <string name="button_intentapi_print_image_PH">Print test image with PH rendering without PH UI</string>
     <string name="button_intentapi_print_file_PH">Print test file with PH rendering without PH UI</string>
     <string name="button_intentapi_print_file_PH_pass">Print protected test file with PH rendering without PH UI</string>
@@ -50,6 +53,9 @@
     <string name="button_printservice_setup">Setup discovered printer</string>
     <string name="button_printservice_changeoption">Change option</string>
     <string name="button_printservice_print">Print test page</string>
+
+    <string name="message_license_activation_error">License activation error</string>
+    <string name="message_license_activation_success">License activation success</string>
     
 
 </resources>
