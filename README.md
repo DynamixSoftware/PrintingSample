@@ -130,7 +130,7 @@ For example, when there is no specific driver available for the printer, it need
 * Setup discovered printer
 * Change printer option
 * Print test page
-* 
+ 
 **Example:**
 * The user selects some content to be printed in the 3rd party app
 * The user detects the printer, sets it up, evaluates the preview using the 3rd party app’s UI
