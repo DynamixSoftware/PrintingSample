@@ -15,7 +15,6 @@ import android.graphics.RectF;
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.dynamixsoftware.intentapi.ResultType;
 import com.dynamixsoftware.printingsdk.DriverHandleEntry;
 import com.dynamixsoftware.printingsdk.DriversSearchEntry;
 import com.dynamixsoftware.printingsdk.IDiscoverCloudListener;
@@ -34,6 +33,7 @@ import com.dynamixsoftware.printingsdk.PrinterOption;
 import com.dynamixsoftware.printingsdk.PrinterOptionValue;
 import com.dynamixsoftware.printingsdk.PrintingSdk;
 import com.dynamixsoftware.printingsdk.Result;
+import com.dynamixsoftware.printingsdk.ResultType;
 import com.dynamixsoftware.printingsdk.SmbFile;
 import com.dynamixsoftware.printingsdk.TransportType;
 
@@ -181,7 +181,7 @@ public class ServiceSample {
 		@Override
 		public void finish(List<DriversSearchEntry> arg0) throws RemoteException {
 			Log.d(TAG, "IFindDriversListener finish; Found "
-					+ arg0.size() + "drivers entries;" +
+					+ arg0.size() + " drivers entries;" +
 					((arg0.size() == 0) ? "" : ""));
 			listDriversSearchEntry = arg0;
 		}
@@ -509,7 +509,7 @@ public class ServiceSample {
 				// Lets try to setup the first one.
 				printer = listPrinters.get(0);
 				Log.d(TAG, "Try to setup printer " + printer.getName());
-				if (listDriversSearchEntry == null && listDriversSearchEntry.get(0) != null) {
+				if (listDriversSearchEntry == null) {
 					Log.d(TAG, "Find drivers for the printer first");
 				} else {
 					try {

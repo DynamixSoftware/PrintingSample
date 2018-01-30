@@ -1,7 +1,6 @@
 package com.dynamixsoftware.printingsample.samples;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -25,6 +24,7 @@ import com.dynamixsoftware.intentapi.IServiceCallback;
 import com.dynamixsoftware.intentapi.ISetLicenseCallback;
 import com.dynamixsoftware.intentapi.IntentAPI;
 import com.dynamixsoftware.intentapi.PrintHandOption;
+import com.dynamixsoftware.intentapi.Result;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,63 +35,140 @@ import java.util.List;
 import java.util.Random;
 
 public class IntentAPISample {
-	
+
 	private static String TAG = "IntentAPISample";
-	
+
 	private IntentAPI intentAPI;
-	private Context context;
-	
-	public boolean connected = false;
-	
-	/***
-	 * Service must be started. You can use service methods after onServiceConnected event.
-	 * @param activity this activity will be used to start PrintHand
-	 */
+	private Activity activity;
+
+	private boolean connected = false;
+
+	private IServiceCallback serviceCallback = new IServiceCallback.Stub() {
+
+		@Override
+		public void onServiceDisconnected() {
+			connected = false;
+			Log.d(TAG, "Service disconnected");
+		}
+
+		@Override
+		public void onServiceConnected() {
+			connected = true;
+			Log.d(TAG, "Service connected");
+		}
+
+		@Override
+		public void onFileOpen(int progress, int finished) {
+			Log.d(TAG, "onFileOpen progress " + progress + "; finished " + (finished == 1));
+		}
+
+		@Override
+		public void onLibraryDownload(int progress) throws RemoteException {
+			Log.d(TAG, "onLibraryDownload progress " + progress);
+		}
+
+		@Override
+		public boolean onRenderLibraryCheck(boolean renderLibrary, boolean fontLibrary) throws RemoteException {
+			Log.d(TAG, "onRenderLibraryCheck render library " + renderLibrary + "; fonts library " + fontLibrary);
+			return true;
+		}
+
+		@Override
+		public String onPasswordRequired() throws RemoteException {
+			Log.d(TAG, "onPasswordRequired");
+			return "password";
+		}
+
+		@Override
+		public void onError(Result result) throws RemoteException {
+			Log.d(TAG, "error, Result " + result
+					+ "; Result type " + result.getType());
+		}
+
+	};
+
+	private IPrintCallback printCallback = new IPrintCallback.Stub() {
+
+		@Override
+		public void startingPrintJob() throws RemoteException {
+			Log.d(TAG, "startingPrintJob");
+		}
+
+		@Override
+		public void start() throws RemoteException {
+			Log.d(TAG, "start");
+		}
+
+		@Override
+		public void sendingPage(int pageNum, int progress) throws RemoteException {
+			Log.d(TAG, "sendingPage number " + pageNum + ", progress " + progress);
+		}
+
+		@Override
+		public void preparePage(int pageNum) throws RemoteException {
+			Log.d(TAG, "preparePage number " +  pageNum);
+		}
+
+		@Override
+		public boolean needCancel() throws RemoteException {
+			Log.d(TAG, "needCancel");
+			// If you need to cancel printing send true
+			return false;
+		}
+
+		@Override
+		public void finishingPrintJob() throws RemoteException {
+			Log.d(TAG, "needCancel");
+		}
+
+		@Override
+		public void finish(Result result, int pagesPrinted) throws RemoteException {
+			Log.d(TAG, "finish, Result " + result
+					+ "; Result type " + result.getType()
+					+ "; Result message " + result.getType().getMessage()
+					+ "; pages printed " + pagesPrinted);
+		}
+	};
+
+	private ISetLicenseCallback setLicenseCallback = new ISetLicenseCallback.Stub() {
+
+		@Override
+		public void start() throws RemoteException {
+			Log.d(TAG, "activateOnline start");
+		}
+
+		@Override
+		public void serverCheck() throws RemoteException {
+			Log.d(TAG, "activateOnline serverCheck");
+		}
+
+		@Override
+		public void finish(Result arg0) throws RemoteException {
+			Log.d(TAG, "activateOnline finish " + arg0);
+		}
+
+	};
+
 	public IntentAPISample(Activity activity) {
-		context = activity;
+		this.activity = activity;
+	}
+
+	public void createIntentAPIWithActivity() {
+		intentAPI = new IntentAPI(activity);
+	}
+
+	public void createIntentAPIWithApplication() {
+		intentAPI = new IntentAPI(activity.getApplicationContext());
 	}
 
 	public void startService() {
-		if (intentAPI == null || !intentAPI.isServiceRunning()) {
-			intentAPI = new IntentAPI((Activity) context);
+		if (intentAPI == null) {
+			Log.d(TAG, "intentAPI is null");
+			return;
+		}
+		if (!connected) {
 			try {
-				intentAPI.runService(new IServiceCallback.Stub() {
-					
-					@Override
-					public void onServiceDisconnected() {
-						connected = false;
-						Log.d(TAG, "Service disconnected");
-					}
-					
-					@Override
-					public void onServiceConnected() {
-						connected = true;
-						Log.d(TAG, "Service connected");
-					}
-
-					@Override
-					public void onFileOpen(int progress, int finished) {
-						Log.d(TAG, "onFileOpen progress " + progress + "; finished " + (finished == 1));
-					}
-
-					@Override
-					public void onLibraryDownload(int progress) throws RemoteException {
-						Log.d(TAG, "onLibraryDownload progress " + progress);
-					}
-
-					@Override
-					public boolean onRenderLibraryCheck(boolean renderLibrary, boolean fontLibrary) throws RemoteException {
-						Log.d(TAG, "onRenderLibraryCheck render library " + renderLibrary + "; fonts library " + fontLibrary);
-						return true;
-					}
-
-					@Override
-					public String onPasswordRequired() throws RemoteException {
-						Log.d(TAG, "onPasswordRequired");
-						return "password";
-					}
-
-				});
+				intentAPI.runService(serviceCallback);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -99,22 +176,25 @@ public class IntentAPISample {
 	}
 
 	private boolean checkService() {
-		if (intentAPI != null && intentAPI.isServiceRunning() && connected) {
-			return true;
-		} else {
-			return false;
-		}
+		return intentAPI != null && connected;
 	}
 
-	
-	public void setCallback(IPrintCallback callback) throws RemoteException {
+	public void setServiceCallback() throws RemoteException {
+		if (intentAPI == null) {
+			Log.d(TAG, "intentAPI is null");
+			return;
+		}
+		intentAPI.setServiceCallback(serviceCallback);
+	}
+
+	public void setPrintCallback() throws RemoteException {
 		if (checkService()) {
-			intentAPI.setCallback(callback);
+			intentAPI.setPrintCallback(printCallback);
 		} else {
 			serviceStopped();
 		}
 	}
-	
+
 	public void checkPremium() throws RemoteException {
 		if (checkService()) {
 			Log.d(TAG, "checkPremium " + intentAPI.checkPremium());
@@ -122,23 +202,23 @@ public class IntentAPISample {
 			serviceStopped();
 		}
 	}
-	
+
 	public void print(Uri uri, String contentType, String description) {
-		if (checkService()) {
-			intentAPI.print(uri, contentType, description);
-		} else {
-			serviceStopped();
+		if (intentAPI == null) {
+			Log.d(TAG, "intentAPI is null");
+			return;
 		}
+		intentAPI.print(uri, contentType, description);
 	}
-	
+
 	public void setupCurrentPrinter() {
-		if (checkService()) {
-			intentAPI.setupCurrentPrinter();
-		} else {
-			serviceStopped();
+		if (intentAPI == null) {
+			Log.d(TAG, "intentAPI is null");
+			return;
 		}
+		intentAPI.setupCurrentPrinter();
 	}
-	
+
 	public IPrinterInfo getCurrentPrinter() throws RemoteException {
 		if (checkService()) {
 			return intentAPI.getCurrentPrinter();
@@ -147,27 +227,28 @@ public class IntentAPISample {
 			return null;
 		}
 	}
-	
+
 	public void changeOptions() {
+		if (intentAPI == null) {
+			Log.d(TAG, "intentAPI is null");
+			return;
+		}
+		intentAPI.changePrinterOptions();
+	}
+
+	public void setLicense() {
 		if (checkService()) {
-			intentAPI.changePrinterOptions();
+			// set activation key here
+			intentAPI.setLicense("", setLicenseCallback);
 		} else {
 			serviceStopped();
 		}
 	}
-	
-	public void setLicense(String licenseID, ISetLicenseCallback licenseCallback) {
-		if (checkService()) {
-			intentAPI.setLicense(licenseID, licenseCallback);
-		} else {
-			serviceStopped();
-		}
-	}
-	
+
 	private void serviceStopped() {
 		Log.d(TAG, "Service is not running");
 	}
-	
+
 	/***
 	 * Prints test page with small image.
 	 * @throws RemoteException
@@ -182,7 +263,7 @@ public class IntentAPISample {
 				if (printer != null) {
 					Bitmap bitmap = Bitmap.createBitmap(fragment.width(), fragment.height(), Config.ARGB_8888);
 
-					AssetManager am = context.getAssets();
+					AssetManager am = activity.getAssets();
 					for (int i = 0; i < 3; i++)
 						try {
 							BitmapFactory.Options options = new BitmapFactory.Options();
@@ -202,7 +283,7 @@ public class IntentAPISample {
 								imageWidth = imageBMP.getWidth();
 								imageHeight = imageBMP.getHeight();
 							}
-							
+
 							int xDpi = printer.getPrinterContext().getHResolution();
 							int yDpi = printer.getPrinterContext().getVResolution();
 
@@ -211,18 +292,18 @@ public class IntentAPISample {
 							int paperHeight = printer.getPrinterContext().getPaperHeight() * yDpi / 72;
 
 							float aspectH = (float) imageHeight / (float) paperHeight;
-							
+
 							float aspectW = (float) imageWidth / (float) paperWidth;
-							
+
 							RectF dst = new RectF(0, 0, fragment.width() * aspectW, fragment.height() * aspectH);
-							
+
 							float sLeft = 0;
 							float sTop = fragment.top * aspectH;
 							float sRight = imageWidth;
 							float sBottom = fragment.top * aspectH + fragment.bottom * aspectH;
 
 							RectF source = new RectF(sLeft, sTop, sRight, sBottom);
-							
+
 							Canvas canvas = new Canvas(bitmap);
 							canvas.drawColor(Color.WHITE);
 
@@ -265,10 +346,10 @@ public class IntentAPISample {
 
 	public void printIDoc() throws RemoteException {
 		IDocument.Stub document = new IDocument.Stub() {
-			
+
 			private int thumbnailWidth;
 			private int thumbnailHeight;
-			
+
 			@Override
 			public Bitmap renderPageFragment(int arg0, Rect fragment)
 					throws RemoteException {
@@ -276,7 +357,7 @@ public class IntentAPISample {
 				if (printer != null) {
 					Bitmap bitmap = Bitmap.createBitmap(fragment.width(), fragment.height(), Config.ARGB_8888);
 
-					AssetManager am = context.getAssets();
+					AssetManager am = activity.getAssets();
 					for (int i = 0; i < 3; i++)
 						try {
 							BitmapFactory.Options options = new BitmapFactory.Options();
@@ -296,7 +377,7 @@ public class IntentAPISample {
 								imageWidth = imageBMP.getWidth();
 								imageHeight = imageBMP.getHeight();
 							}
-							
+
 							int xDpi = printer.getPrinterContext().getHResolution();
 							int yDpi = printer.getPrinterContext().getVResolution();
 
@@ -306,19 +387,19 @@ public class IntentAPISample {
 
 							float aspectH = (float) imageHeight / (float) paperHeight;
 							float aspectW = (float) imageWidth / (float) paperWidth;
-							
+
 							aspectH = aspectH > 1 ? 1 / aspectH : aspectH;
 							aspectW = aspectW > 1 ? 1 / aspectW : aspectW;
-							
+
 							RectF dst = new RectF(0, 0, fragment.width() * aspectW, fragment.height() * aspectH);
-							
+
 							float sLeft = 0;
 							float sTop = fragment.top * aspectH;
 							float sRight = imageWidth;
 							float sBottom = fragment.top * aspectH + fragment.bottom * aspectH;
 
 							RectF source = new RectF(sLeft, sTop, sRight, sBottom);
-							
+
 							Canvas canvas = new Canvas(bitmap);
 							canvas.drawColor(Color.WHITE);
 
@@ -345,7 +426,7 @@ public class IntentAPISample {
 					return null;
 				}
 			}
-			
+
 			@Override
 			public void initDeviceContext(IPrinterContext printerContext, int thumbnailWidth, int thumbnailHeight)
 					throws RemoteException {
@@ -353,12 +434,12 @@ public class IntentAPISample {
 				this.thumbnailWidth = thumbnailWidth;
 				this.thumbnailHeight = thumbnailHeight;
 			}
-			
+
 			@Override
 			public int getTotalPages() throws RemoteException {
 				return 1;
 			}
-			
+
 			@Override
 			public String getDescription() throws RemoteException {
 				return "PrintHand test page";
@@ -368,7 +449,7 @@ public class IntentAPISample {
 			public Bitmap getPageThumbnail(int arg0) throws RemoteException {
 				Bitmap bitmap = Bitmap.createBitmap(thumbnailWidth, thumbnailHeight, Config.ARGB_8888);
 
-				AssetManager am = context.getAssets();
+				AssetManager am = activity.getAssets();
 				for (int i = 0; i < 3; i++)
 					try {
 						BitmapFactory.Options options = new BitmapFactory.Options();
@@ -439,7 +520,7 @@ public class IntentAPISample {
 				return bitmap;
 			}
 		};
-	
+
 		if (checkService()) {
 			intentAPI.print(document);
 		} else {
@@ -449,11 +530,11 @@ public class IntentAPISample {
 
 	public void printWithoutUI(String filename) throws RemoteException, IOException {
 		if (checkService()) {
-			AssetManager assetMgr = context.getAssets();
+			AssetManager assetMgr = activity.getAssets();
 			InputStream in = assetMgr.open(filename);
 			OutputStream out = null;
 
-			File f = new File(context.getExternalFilesDir(null), filename);
+			File f = new File(activity.getExternalFilesDir(null), filename);
 
 			out = new FileOutputStream(f);
 			byte[] buffer = new byte[1024];
@@ -478,37 +559,45 @@ public class IntentAPISample {
 			serviceStopped();
 		}
 	}
-	
+
 	public void changeImageOptions() throws RemoteException {
-		Random random = new Random();
-		List<PrintHandOption> imagesOptions = intentAPI.getImagesOptions();
-		for (PrintHandOption phOption : imagesOptions) {
-			Log.d(TAG, "Current option " + phOption.getName() + " value is " + phOption.getValue());
-			List<String> valuesList = phOption.getValuesList();
-			phOption.setValue(valuesList.get(random.nextInt(valuesList.size())));
-			Log.d(TAG, "Changed option " + phOption.getName() + " value is " + phOption.getValue());
+		if (checkService()) {
+			Random random = new Random();
+			List<PrintHandOption> imagesOptions = intentAPI.getImagesOptions();
+			for (PrintHandOption phOption : imagesOptions) {
+				Log.d(TAG, "Current option " + phOption.getName() + " value is " + phOption.getValue());
+				List<String> valuesList = phOption.getValuesList();
+				phOption.setValue(valuesList.get(random.nextInt(valuesList.size())));
+				Log.d(TAG, "Changed option " + phOption.getName() + " value is " + phOption.getValue());
+			}
+			intentAPI.setImagesOptions(imagesOptions);
+		} else {
+			serviceStopped();
 		}
-		intentAPI.setImagesOptions(imagesOptions);
 	}
 
 	public void changeFileOptions() throws RemoteException {
-		Random random = new Random();
-		List<PrintHandOption> fileOptions = intentAPI.getFilesOptions();
-		for (PrintHandOption phOption : fileOptions) {
-			Log.d(TAG, "Current option " + phOption.getName() + " value is " + phOption.getValue());
-			List<String> valuesList = phOption.getValuesList();
-			phOption.setValue(valuesList.get(random.nextInt(valuesList.size())));
-			Log.d(TAG, "Changed option " + phOption.getName() + " value is " + phOption.getValue());
+		if (checkService()) {
+			Random random = new Random();
+			List<PrintHandOption> fileOptions = intentAPI.getFilesOptions();
+			for (PrintHandOption phOption : fileOptions) {
+				Log.d(TAG, "Current option " + phOption.getName() + " value is " + phOption.getValue());
+				List<String> valuesList = phOption.getValuesList();
+				phOption.setValue(valuesList.get(random.nextInt(valuesList.size())));
+				Log.d(TAG, "Changed option " + phOption.getName() + " value is " + phOption.getValue());
+			}
+			intentAPI.setFilesOptions(fileOptions);
+		} else {
+			serviceStopped();
 		}
-		intentAPI.setFilesOptions(fileOptions);
 	}
 
 	public void showFilesPreview(Uri uri, String mimeType, int pageNumber) {
-		try {
-			intentAPI.showFilePreview(uri, mimeType, pageNumber);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (intentAPI == null) {
+			Log.d(TAG, "intentAPI is null");
+			return;
 		}
+		intentAPI.showFilePreview(uri, mimeType, pageNumber);
 	}
-	
+
 }

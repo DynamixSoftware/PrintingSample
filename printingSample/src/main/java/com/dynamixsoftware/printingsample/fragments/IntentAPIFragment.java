@@ -11,92 +11,61 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.dynamixsoftware.intentapi.IPrintCallback;
 import com.dynamixsoftware.intentapi.IPrinterInfo;
-import com.dynamixsoftware.intentapi.ISetLicenseCallback;
-import com.dynamixsoftware.intentapi.Result;
 import com.dynamixsoftware.printingsample.PrintingSample;
 import com.dynamixsoftware.printingsample.R;
 import com.dynamixsoftware.printingsample.samples.IntentAPISample;
 
 public class IntentAPIFragment extends PlaceholderFragment {
-	
+
 	private static String TAG = "IntentAPI";
-	
+
 	private IntentAPISample intentAPISample;
-	protected IPrintCallback callback = new IPrintCallback.Stub() {
-		
-		@Override
-		public void startingPrintJob() throws RemoteException {
-			Log.d(TAG, "startingPrintJob");
-		}
-		
-		@Override
-		public void start() throws RemoteException {
-			Log.d(TAG, "start");
-		}
-		
-		@Override
-		public void sendingPage(int pageNum, int progress) throws RemoteException {
-			Log.d(TAG, "sendingPage number " + pageNum + ", progress " + progress);
-		}
-		
-		@Override
-		public void preparePage(int pageNum) throws RemoteException {
-			Log.d(TAG, "preparePage number " +  pageNum);
-		}
-		
-		@Override
-		public boolean needCancel() throws RemoteException {
-			Log.d(TAG, "needCancel");
-			// If you need to cancel printing send true
-			return false;
-		}
-		
-		@Override
-		public void finishingPrintJob() throws RemoteException {
-			Log.d(TAG, "needCancel");
-		}
-		
-		@Override
-		public void finish(Result result, int pagesPrinted) throws RemoteException {
-			Log.d(TAG, "finish, Result " + result
-					+ "; Result type " + result.getType()
-					+ "; Result message " + result.getType().getMessage()
-					+ "; pages printed " + pagesPrinted);
-		}
-	};
-	
-	/**
-	 * Returns a new instance of this fragment.
-	 */
+
 	public static IntentAPIFragment newInstance() {
-		IntentAPIFragment fragment = new IntentAPIFragment();
-		return fragment;
+		return new IntentAPIFragment();
 	}
-	
+
 	public IntentAPIFragment() {
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		// Service should be started firstly
 		if (intentAPISample == null) {
 			intentAPISample = new IntentAPISample(getActivity());
 		}
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View root = inflater.inflate(R.layout.fragment_placeholder, container, false);
-		
+
 		ViewGroup buttonsHolder = (ViewGroup) root.findViewById(R.id.btn_holder);
 		buttonsHolder.removeAllViews();
-		
+
 		Context context = container.getContext();
-		
+
+		Button createAPIWithActivity = new Button(context);
+		createAPIWithActivity.setText(R.string.button_intentapi_create_intentapi_activity);
+		createAPIWithActivity.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				intentAPISample.createIntentAPIWithActivity();
+			}
+		});
+		buttonsHolder.addView(createAPIWithActivity);
+
+		Button createAPIWithApplication = new Button(context);
+		createAPIWithApplication.setText(R.string.button_intentapi_create_intentapi_application);
+		createAPIWithApplication.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				intentAPISample.createIntentAPIWithApplication();
+			}
+		});
+		buttonsHolder.addView(createAPIWithApplication);
+
 		Button startService = new Button(context);
 		startService.setText(R.string.button_intentapi_startservice);
 		startService.setOnClickListener(new OnClickListener() {
@@ -107,9 +76,39 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(startService);
-		
+
+		Button setServiceCallback = new Button(context);
+		setServiceCallback.setText(R.string.button_intentapi_setservicecallback);
+		setServiceCallback.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					intentAPISample.setServiceCallback();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		buttonsHolder.addView(setServiceCallback);
+
+		Button setPrintCallback = new Button(context);
+		setPrintCallback.setText(R.string.button_intentapi_setprintcallback);
+		setPrintCallback.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					intentAPISample.setPrintCallback();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		buttonsHolder.addView(setPrintCallback);
+
 		Button checkPremium = new Button(context);
-		checkPremium.setText("Check Premium");
+		checkPremium.setText(R.string.button_intentapi_checkpremium);
 		checkPremium.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -122,51 +121,17 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(checkPremium);
-		
-		Button activateOnline = new Button(context);
-		activateOnline.setText("Activate online");
-		activateOnline.setOnClickListener(new OnClickListener() {
 
+		Button activateOnline = new Button(context);
+		activateOnline.setText(R.string.button_intentapi_activateonline);
+		activateOnline.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// set activation key here
-				intentAPISample.setLicense("", new ISetLicenseCallback.Stub() {
-
-					@Override
-					public void start() throws RemoteException {
-						Log.d(TAG, "activateOnline start");
-					}
-
-					@Override
-					public void serverCheck() throws RemoteException {
-						Log.d(TAG, "activateOnline serverCheck");
-					}
-
-					@Override
-					public void finish(Result arg0) throws RemoteException {
-						Log.d(TAG, "activateOnline finish " + arg0);
-					}
-
-				});
+				intentAPISample.setLicense();
 			}
 		});
 		buttonsHolder.addView(activateOnline);
 
-		Button setCallback = new Button(context);
-		setCallback.setText(R.string.button_intentapi_setcallback);
-		setCallback.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				try {
-					intentAPISample.setCallback(callback );
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		buttonsHolder.addView(setCallback);
-		
 		Button setupPrinter = new Button(context);
 		setupPrinter.setText(R.string.button_intentapi_setup);
 		setupPrinter.setOnClickListener(new OnClickListener() {
@@ -177,7 +142,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(setupPrinter);
-		
+
 		Button changeOptions = new Button(context);
 		changeOptions.setText(R.string.button_intentapi_changeoptions);
 		changeOptions.setOnClickListener(new OnClickListener() {
@@ -188,7 +153,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(changeOptions);
-		
+
 		Button getCurrentPrinter = new Button(context);
 		getCurrentPrinter.setText(R.string.button_intentapi_getcurrentprinter);
 		getCurrentPrinter.setOnClickListener(new OnClickListener() {
@@ -208,7 +173,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(getCurrentPrinter);
-		
+
 		Button printImage = new Button(context);
 		printImage.setText(R.string.button_intentapi_printimage);
 		printImage.setOnClickListener(new OnClickListener() {
@@ -227,7 +192,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(printImage);
-		
+
 		Button printFile = new Button(context);
 		printFile.setText(R.string.button_intentapi_printdoc);
 		printFile.setOnClickListener(new OnClickListener() {
@@ -270,7 +235,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 		Button printDocument = new Button(context);
 		printDocument.setText(R.string.button_intentapi_printidoc);
 		printDocument.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				try {
@@ -281,11 +246,11 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(printDocument);
-		
+
 		Button printIJob = new Button(context);
 		printIJob.setText(R.string.button_intentapi_printijob);
 		printIJob.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				try {
@@ -296,11 +261,11 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(printIJob);
-		
+
 		Button printImageWithoutPHUI = new Button(context);
 		printImageWithoutPHUI.setText(R.string.button_intentapi_print_image_PH);
 		printImageWithoutPHUI.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				try {
@@ -311,11 +276,11 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(printImageWithoutPHUI);
-		
+
 		Button changeImageOptions = new Button(context);
 		changeImageOptions.setText(R.string.button_intentapi_change_image_options);
 		changeImageOptions.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				try {
@@ -371,7 +336,7 @@ public class IntentAPIFragment extends PlaceholderFragment {
 			}
 		});
 		buttonsHolder.addView(changeFileOptions);
-		
+
 		return root;
 	}
 

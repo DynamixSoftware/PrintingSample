@@ -13,15 +13,15 @@ import com.dynamixsoftware.printingsample.MainActivity;
 import com.dynamixsoftware.printingsample.PrintingSample;
 
 public class ShareIntentSample {
-	
+
 	private static String TAG = "ShareIntent";
 
 	private Context context;
-	
+
 	public ShareIntentSample(Context context) {
 		this.context = context;
 	}
-	
+
 	/***
 	 * Tries to share image using ACTION_VIEW or ACTION_SEND Intent.
 	 * @param actionView true if ACTION_VIEW, false if ACTION_SEND
@@ -34,10 +34,10 @@ public class ShareIntentSample {
 			e.printStackTrace();
 			return;
 		}
-		
+
 		String action = actionView ? Intent.ACTION_VIEW : Intent.ACTION_SEND;
 		Intent i = new Intent(action);
-		
+
 		Uri uri = Uri.parse("file://" + context.getExternalCacheDir().getAbsolutePath() + "/" + PrintingSample.TEST_PAGE_NAME);
 		if (actionView) {
 			i.setDataAndType(uri, "image/png");
@@ -45,7 +45,7 @@ public class ShareIntentSample {
 			i.putExtra(Intent.EXTRA_STREAM, uri);
 			i.setType("image/png");
 		}
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_FREE);
 		try {
 			context.startActivity(i);
@@ -53,7 +53,7 @@ public class ShareIntentSample {
 		} catch (ActivityNotFoundException e) {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_FREE + " is not installed.");
 		}
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_PREMIUM);
 		try {
 			context.startActivity(i);
@@ -61,11 +61,11 @@ public class ShareIntentSample {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_PREMIUM + " is not installed.");
 		}
 	}
-	
+
 	/***
 	 * Tries to share multiple images.
 	 */
-	public void shareMiltipleImages() {
+	public void shareMultipleImages() {
 		try {
 			PrintingSample.saveTestImage(context);
 		} catch (Exception e) {
@@ -73,9 +73,9 @@ public class ShareIntentSample {
 			e.printStackTrace();
 			return;
 		}
-		
+
 		Intent i = new Intent(Intent.ACTION_SEND_MULTIPLE);
-		
+
 		Uri uri = Uri.parse("file://" + context.getExternalCacheDir().getAbsolutePath() + "/" + PrintingSample.TEST_PAGE_NAME);
 		ArrayList<Uri> urisList = new ArrayList<Uri>();
 		urisList.add(uri);
@@ -84,7 +84,7 @@ public class ShareIntentSample {
 
 		i.putExtra(Intent.EXTRA_STREAM, urisList);
 		i.setType("image/*");
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_FREE);
 		try {
 			context.startActivity(i);
@@ -92,7 +92,7 @@ public class ShareIntentSample {
 		} catch (ActivityNotFoundException e) {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_FREE + " is not installed.");
 		}
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_PREMIUM);
 		try {
 			context.startActivity(i);
@@ -100,7 +100,7 @@ public class ShareIntentSample {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_PREMIUM + " is not installed.");
 		}
 	}
-	
+
 	/***
 	 * Tries to share image with return to caller application after finish. Check {@link MainActivity#onActivityResult(int requestCode, int resultCode, Intent data)} for available results information.
 	 * @param actionView
@@ -114,10 +114,10 @@ public class ShareIntentSample {
 			e.printStackTrace();
 			return;
 		}
-		
+
 		String action = actionView ? Intent.ACTION_VIEW : Intent.ACTION_SEND;
 		Intent i = new Intent(action);
-		
+
 		Uri uri = Uri.parse("file://" + context.getExternalCacheDir().getAbsolutePath() + "/" + PrintingSample.TEST_PAGE_NAME);
 		if (actionView) {
 			i.setDataAndType(uri, "image/png");
@@ -125,19 +125,19 @@ public class ShareIntentSample {
 			i.putExtra(Intent.EXTRA_STREAM, uri);
 			i.setType("image/png");
 		}
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_FREE);
-		
+
 		// Set return variable
 		i.putExtra("return", true);
-		
+
 		try {
 			((Activity) context).startActivityForResult(i, requestCode);
 			return;
 		} catch (ActivityNotFoundException e) {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_FREE + " is not installed.");
 		}
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_PREMIUM);
 		try {
 			((Activity) context).startActivityForResult(i, requestCode);
@@ -145,7 +145,7 @@ public class ShareIntentSample {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_PREMIUM + " is not installed.");
 		}
 	}
-	
+
 	/***
 	 * Tries to share file using ACTION_VIEW or ACTION_SEND Intent.
 	 * @param actionView true if ACTION_VIEW, false if ACTION_SEND
@@ -158,13 +158,13 @@ public class ShareIntentSample {
 			e.printStackTrace();
 			return;
 		}
-		
+
 		String action = actionView ? Intent.ACTION_VIEW : Intent.ACTION_SEND;
 		Intent i = new Intent(action);
-		
+
 		// Scheme "content" also available
 		String scheme = "file://";
-		
+
 		// MIME types available:
 		// application/pdf
 		// application/vnd.ms-word
@@ -182,7 +182,7 @@ public class ShareIntentSample {
 		// application/haansofthwp
 		// text/plain
 		// text/html
-		
+
 		Uri uri = Uri.parse(scheme + context.getExternalCacheDir().getAbsolutePath() + "/" + PrintingSample.TEST_FILE_NAME);
 		if (actionView) {
 			i.setDataAndType(uri, "application/msword");
@@ -190,7 +190,7 @@ public class ShareIntentSample {
 			i.putExtra(Intent.EXTRA_STREAM, uri);
 			i.setType("application/msword");
 		}
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_FREE);
 		try {
 			context.startActivity(i);
@@ -198,7 +198,7 @@ public class ShareIntentSample {
 		} catch (ActivityNotFoundException e) {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_FREE + " is not installed.");
 		}
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_PREMIUM);
 		try {
 			context.startActivity(i);
@@ -212,18 +212,18 @@ public class ShareIntentSample {
 	 */
 	public void shareWebPage() {
 		Intent i = new Intent(Intent.ACTION_VIEW);
-		
+
 		Uri uri = Uri.parse("http://printhand.com");
 		i.setDataAndType(uri, "text/html");
 		i.setPackage(PrintingSample.PACKAGE_NAME_FREE);
-		
+
 		try {
 			context.startActivity(i);
 			return;
 		} catch (ActivityNotFoundException e) {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_FREE + " is not installed.");
 		}
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_PREMIUM);
 		try {
 			context.startActivity(i);
@@ -231,17 +231,17 @@ public class ShareIntentSample {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_PREMIUM + " is not installed.");
 		}
 	}
-	
+
 	/***
 	 * Tries to share web page as string.
 	 */
 	public void shareWebPageString() {
 		Intent i = new Intent(Intent.ACTION_SEND);
-		
+
 		String printString = loadHtmlString();
 		i.setType("text/html");
 		i.putExtra(Intent.EXTRA_TEXT, printString);
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_FREE);
 		try {
 			context.startActivity(i);
@@ -249,7 +249,7 @@ public class ShareIntentSample {
 		} catch (ActivityNotFoundException e) {
 			Log.d(TAG, "Application with package name " + PrintingSample.PACKAGE_NAME_FREE + " is not installed.");
 		}
-		
+
 		i.setPackage(PrintingSample.PACKAGE_NAME_PREMIUM);
 		try {
 			context.startActivity(i);

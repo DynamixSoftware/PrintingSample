@@ -67,7 +67,7 @@ public class ShareIntentFragment extends PlaceholderFragment {
 			
 			@Override
 			public void onClick(View v) {
-				shareIntent.shareMiltipleImages();
+				shareIntent.shareMultipleImages();
 			}
 		});
 		buttonsHolder.addView(shareMultipleImages);
