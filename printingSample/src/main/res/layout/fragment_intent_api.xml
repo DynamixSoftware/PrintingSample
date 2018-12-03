@@ -1,0 +1,212 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_margin"/>
+
+        <Button
+            android:id="@+id/check_premium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/check_premium"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/activate_online"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/activate_online"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/setup_printer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/setup_printer"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/change_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/change_options"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/get_current_printer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/get_current_printer"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/print_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/print_image"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/print_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/print_file"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/show_file_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/show_file_preview"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/print_with_your_rendering"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/print_with_your_rendering"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/print_with_your_rendering_without_ui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/print_with_your_rendering_without_ui"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/print_image_with_print_hand_rendering_without_ui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/print_image_with_print_hand_rendering_without_ui"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/change_image_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/change_image_options"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/print_file_with_print_hand_rendering_without_ui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/print_file_with_print_hand_rendering_without_ui"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/print_protected_file_with_print_hand_rendering_without_ui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/print_protected_file_with_print_hand_rendering_without_ui"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/change_files_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/change_files_options"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_margin"/>
+
+    </LinearLayout>
+
+</ScrollView>

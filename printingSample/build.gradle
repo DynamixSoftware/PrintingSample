@@ -14,6 +14,8 @@ android {
 dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+
     implementation 'com.dynamixsoftware.intentapi:intentAPI:12'
     implementation 'com.dynamixsoftware.printingsdk:printingSDK:12'
 }

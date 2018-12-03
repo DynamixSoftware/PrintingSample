@@ -1,0 +1,134 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_margin"/>
+
+        <Button
+            android:id="@+id/share_image_action_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/share_image_view"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/share_image_action_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/share_image_send"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/share_image_multiple"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/share_image_multiple"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/share_image_return"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/share_image_return"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/share_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/share_file"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/share_web_page_uri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/share_web_page_uri"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/share_web_page_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/share_web_page_string"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/activate_license"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/share_activate_license"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/activate_license_return"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/share_activate_license_return"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_margin"/>
+
+    </LinearLayout>
+
+</ScrollView>

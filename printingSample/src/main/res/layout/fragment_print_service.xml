@@ -1,0 +1,212 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_margin"/>
+
+        <Button
+            android:id="@+id/set_license"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/set_license"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/init_current_and_recent_printers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/init_current_and_recent_printers"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/get_current_printer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/get_current_printer"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/get_recent_printers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/get_recent_printers"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/discover_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/discover_wifi"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/discover_bluetooth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/discover_bluetooth"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/discover_google_cloud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/discover_google_cloud"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/discover_smb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/discover_smb"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/discover_usb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/discover_usb"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/find_driver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/find_driver"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/get_drivers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/get_drivers"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/setup_recent_printer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/setup_recent_printer"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/setup_discovered_printer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/setup_discovered_printer"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/change_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/change_options"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_spacing"/>
+
+        <Button
+            android:id="@+id/print_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/print_image"
+            android:textAllCaps="false"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_margin"/>
+
+    </LinearLayout>
+
+</ScrollView>

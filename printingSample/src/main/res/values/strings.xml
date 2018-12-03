@@ -2,65 +2,53 @@
 <resources>
 
     <string name="app_name">PrintingSample</string>
-
-    <string name="desc"></string>
-
-    <string name="title_section1">SHARE Intent</string>
-    <string name="title_section2">Intent API</string>
-    <string name="title_section3">PrintingSDK</string>
-
-    <string name="action_settings">Settings</string>
-
-    <string name="button_share_image_view">Share image with ACTION_VIEW</string>
-    <string name="button_share_image_send">Share image with ACTION_SEND</string>
-    <string name="button_share_multiple_images">Share multiple images</string>
-    <string name="button_share_image_return">Share image with return</string>
-    <string name="button_share_file">Share file</string>
-    <string name="button_share_webpage">Share web page</string>
-    <string name="button_share_webpage_string">Share web page as string</string>
-    <string name="button_activate_license">Activate license</string>
-    <string name="button_activate_license_return">Activate license with return</string>
-
-    <string name="button_intentapi_create_intentapi_activity">Create Intent API with Activity context</string>
-    <string name="button_intentapi_create_intentapi_application">Create Intent API with Application context</string>
-    <string name="button_intentapi_startservice">Start Intent API service</string>
-    <string name="button_intentapi_setup">Setup printer</string>
-    <string name="button_intentapi_setprintcallback">Set print callback</string>
-    <string name="button_intentapi_setservicecallback">Set service callback</string>
-    <string name="button_intentapi_checkpremium">Check Premium</string>
-    <string name="button_intentapi_activateonline">Activate online</string>
-    <string name="button_intentapi_changeoptions">Change options</string>
-    <string name="button_intentapi_getcurrentprinter">Get current printer</string>
-    <string name="button_intentapi_printimage">Print image</string>
-    <string name="button_intentapi_printdoc">Print file</string>
-    <string name="button_intentapi_showfilepreview">Show file preview</string>
-    <string name="button_intentapi_printidoc">Print with your rendering</string>
-    <string name="button_intentapi_printijob">Print with your rendering without PH UI</string>
-    <string name="button_intentapi_print_image_PH">Print test image with PH rendering without PH UI</string>
-    <string name="button_intentapi_print_file_PH">Print test file with PH rendering without PH UI</string>
-    <string name="button_intentapi_print_file_PH_pass">Print protected test file with PH rendering without PH UI</string>
-    <string name="button_intentapi_change_image_options">Change image options</string>
-    <string name="button_intentapi_change_files_options">Change files options</string>
-
-    <string name="button_printservice_startservice">Start service</string>
-    <string name="button_printservice_setlicense">Set license</string>
-    <string name="button_printservice_initrecent">Init current and recent printers</string>
-    <string name="button_printservice_getcurrent">Get current printer</string>
-    <string name="button_printservice_getrecent">Get recent printers list</string>
-    <string name="button_printservice_discoverwifi">Discover WiFi</string>
-    <string name="button_printservice_discoverbluetooth">Discover Bluetooth</string>
-    <string name="button_printservice_discovercloud">Discover Google Cloudprint</string>
-    <string name="button_printservice_discoversmd">Discover SMB</string>
-    <string name="button_printservice_discoverusb">Discover USB</string>
-    <string name="button_printservice_getdriverslist">Get drivers list</string>
-    <string name="button_printservice_finddriver">Find driver</string>
-    <string name="button_printservice_setuprecent">Setup recent printer</string>
-    <string name="button_printservice_setup">Setup discovered printer</string>
-    <string name="button_printservice_changeoption">Change option</string>
-    <string name="button_printservice_print">Print test page</string>
-
-    <string name="message_license_activation_error">License activation error</string>
-    <string name="message_license_activation_success">License activation success</string>
-
+    <string name="share_intent">Share Intent</string>
+    <string name="intent_api">Intent Api</string>
+    <string name="printing_sdk">Printing SDK</string>
+    <string name="share_image_view">Share image with ACTION_VIEW</string>
+    <string name="share_image_send">Share image with ACTION_SEND</string>
+    <string name="share_image_multiple">Share multiple images</string>
+    <string name="share_image_return">Share image with return</string>
+    <string name="share_file">Share file</string>
+    <string name="share_web_page_uri">Share web page as uri</string>
+    <string name="share_web_page_string">Share web page as string</string>
+    <string name="share_activate_license">Activate license</string>
+    <string name="share_activate_license_return">Activate license with return</string>
+    <string name="setup_printer">Setup printer</string>
+    <string name="check_premium">Check Premium</string>
+    <string name="activate_online">Activate online</string>
+    <string name="change_options">Change options</string>
+    <string name="get_current_printer">Get current printer</string>
+    <string name="print_image">Print image</string>
+    <string name="print_file">Print file</string>
+    <string name="show_file_preview">Show file preview</string>
+    <string name="print_with_your_rendering">Print with your rendering</string>
+    <string name="print_with_your_rendering_without_ui">Print with your rendering without PrintHand UI</string>
+    <string name="print_image_with_print_hand_rendering_without_ui">Print image with PrintHand rendering without PrintHand UI</string>
+    <string name="print_file_with_print_hand_rendering_without_ui">Print file with PrintHand rendering without PrintHand UI</string>
+    <string name="print_protected_file_with_print_hand_rendering_without_ui">Print protected file with PrintHand rendering without PrintHand UI</string>
+    <string name="change_image_options">Change image options</string>
+    <string name="change_files_options">Change files options</string>
+    <string name="set_license">Set license</string>
+    <string name="init_current_and_recent_printers">Init current and recent printers</string>
+    <string name="get_recent_printers">Get recent printers</string>
+    <string name="discover_wifi">Discover WiFi</string>
+    <string name="discover_bluetooth">Discover Bluetooth</string>
+    <string name="discover_google_cloud">Discover Google Cloud</string>
+    <string name="discover_smb">Discover SMB</string>
+    <string name="discover_usb">Discover USB</string>
+    <string name="get_drivers">Get drivers</string>
+    <string name="find_driver">Find driver</string>
+    <string name="setup_recent_printer">Setup recent printer</string>
+    <string name="setup_discovered_printer">Setup discovered printer</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="message_error_start_intent">Oops! This Intent can not be handled.\n\nCheck that <b>PrintHand</b> or  <b>PrintHand Premium</b> application installed on your device</string>
+    <string name="message_error_license_activation">License activation failed</string>
+    <string name="message_success_license_activation">License activation success</string>
+    <string name="message_share_image_cancelled">Share image cancelled</string>
+    <string name="message_error_open_file">Open file failed</string>
+    <string name="ok">OK</string>
 
 </resources>
