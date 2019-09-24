@@ -10,6 +10,7 @@
     <string name="share_image_multiple">Share multiple images</string>
     <string name="share_image_return">Share image with return</string>
     <string name="share_file">Share file</string>
+    <string name="share_file_as_content">Share file as content</string>
     <string name="share_web_page_uri">Share web page as uri</string>
     <string name="share_web_page_string">Share web page as string</string>
     <string name="share_activate_license">Activate license</string>

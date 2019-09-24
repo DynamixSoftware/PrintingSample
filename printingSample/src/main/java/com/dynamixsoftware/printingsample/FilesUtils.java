@@ -50,8 +50,12 @@ class FilesUtils {
     }
 
     static String getFilePath(Context context, String filename) {
-        File file = new File(getFilesDir(context), filename);
+        File file = getFile(context, filename);
         return file.exists() ? file.getAbsolutePath() : null;
+    }
+
+    static File getFile(Context context, String filename) {
+        return new File(getFilesDir(context), filename);
     }
 
     private static File getFilesDir(Context context) {

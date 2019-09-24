@@ -7,12 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ShareIntentFragment extends Fragment implements View.OnClickListener {
@@ -34,6 +36,7 @@ public class ShareIntentFragment extends Fragment implements View.OnClickListene
         root.findViewById(R.id.share_image_multiple).setOnClickListener(this);
         root.findViewById(R.id.share_image_return).setOnClickListener(this);
         root.findViewById(R.id.share_file).setOnClickListener(this);
+        root.findViewById(R.id.share_file_as_content).setOnClickListener(this);
         root.findViewById(R.id.share_web_page_uri).setOnClickListener(this);
         root.findViewById(R.id.share_web_page_string).setOnClickListener(this);
         root.findViewById(R.id.activate_license).setOnClickListener(this);
@@ -137,6 +140,19 @@ public class ShareIntentFragment extends Fragment implements View.OnClickListene
                     // application/haansofthwp
                     // text/plain
                     // text/html
+                    if (startPrintHandActivityFailed(intent))
+                        showStartPrintHandActivityErrorDialog();
+                } else
+                    showOpenFileErrorDialog();
+                break;
+            }
+            case R.id.share_file_as_content: {
+                File file = FilesUtils.getFile(requireContext(), FilesUtils.FILE_DOC);
+                if (file.exists()) {
+                    Uri uri = FileProvider.getUriForFile(requireContext(), "com.dynamixsoftware.printingsample.fileprovider", file);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(uri);
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     if (startPrintHandActivityFailed(intent))
                         showStartPrintHandActivityErrorDialog();
                 } else
