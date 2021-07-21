@@ -14,7 +14,6 @@ Depending on the application, its content and other requirements, there are seve
 
 PrintingSample application shows all the listed integration options in action.
 
-**Project requirements: Android Studio 2.2.2, gradle plugin 2.2.2, Android build tools 23.0.3, Android support v4 library version 23.2.1, Android v7 appcompat library.**
 
 ## Integration via [Share Intent](https://github.com/DynamixSoftware/PrintingSample/blob/master/printingSample/src/main/java/com/dynamixsoftware/printingsample/ShareIntentFragment.java)
 This is the easiest way to integrate with PrintHand based on the standard Android Share Intent. With Share Intent one can send data to the PrintHand (or to any other app capable of receiving the content type specified when sending the intent).
