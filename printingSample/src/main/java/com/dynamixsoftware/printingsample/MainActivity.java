@@ -1,11 +1,13 @@
 package com.dynamixsoftware.printingsample;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
                 return 3;
             }
 
+            @NonNull
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
+                    default:
                     case 0:
                         return new ShareIntentFragment();
                     case 1:
@@ -32,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         return new PrintServiceFragment();
                 }
-                return null;
             }
 
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
                 switch (position) {
+                    default:
                     case 0:
                         return getString(R.string.share_intent);
                     case 1:
@@ -46,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         return getString(R.string.printing_sdk);
                 }
-                return null;
             }
         });
     }
