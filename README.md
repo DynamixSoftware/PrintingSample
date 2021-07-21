@@ -16,7 +16,7 @@ PrintingSample application shows all the listed integration options in action.
 
 **Project requirements: Android Studio 2.2.2, gradle plugin 2.2.2, Android build tools 23.0.3, Android support v4 library version 23.2.1, Android v7 appcompat library.**
 
-## Integration via [Share Intent](https://github.com/DynamixSoftware/PrintingSample/blob/master/printingSample/src/main/java/com/dynamixsoftware/printingsample/samples/ShareIntentSample.java)
+## Integration via [Share Intent](https://github.com/DynamixSoftware/PrintingSample/blob/master/printingSample/src/main/java/com/dynamixsoftware/printingsample/ShareIntentFragment.java)
 This is the easiest way to integrate with PrintHand based on the standard Android Share Intent. With Share Intent one can send data to the PrintHand (or to any other app capable of receiving the content type specified when sending the intent).
 
 **Requirements:**
@@ -52,7 +52,7 @@ Printer configuration steps are skipped when the user attempts to print on a pri
 
 **Our tip:** We recommend sticking to this option if you would like to add printing capabilities to your app with almost zero effort required.
 
-## Integration via [PrintHand Intent API](https://github.com/DynamixSoftware/PrintingSample/blob/master/printingSample/src/main/java/com/dynamixsoftware/printingsample/samples/IntentAPISample.java)
+## Integration via [PrintHand Intent API](https://github.com/DynamixSoftware/PrintingSample/blob/master/printingSample/src/main/java/com/dynamixsoftware/printingsample/IntentApiFragment.java)
 With this integration option you can get better control over the rendering process and printing options. The main idea is that the 3rd party application would be capable of altering the printing options directly using it’s own UI elements. Therefore it can render the content specifically for the specific printer model, and give the user the options to adjust settings.
 
 **Requirements:**
@@ -95,7 +95,7 @@ However, instead of invoking it via a single Share Intent as in the first "fire 
 
 **Recap:** This integration scenario is similar in a way to printing documents from Microsoft Office suite on Windows where the application (i.e. Microsoft Word) controls print preview and options, while actual printing is done through a series of calls to print driver. This method is useful for integrating with applications working with complex content such as office documents, maps, etc.
 
-## Integration with [PrintHand Printing SDK](https://github.com/DynamixSoftware/PrintingSample/blob/master/printingSample/src/main/java/com/dynamixsoftware/printingsample/samples/ServiceSample.java)
+## Integration with [PrintHand Printing SDK](https://github.com/DynamixSoftware/PrintingSample/blob/master/printingSample/src/main/java/com/dynamixsoftware/printingsample/PrintServiceFragment.java)
 When sticking to this option, 3rd party application can take full control of printing process calling PrintHand Printing SDK directly. The service is running in the background, does not directly interact with users and doesn't have any UI elements. This is the same service PrintHand application is calling when providing printing functionality.
 **Requirements:**
 * PrintHand Printing SDK service should be running on the device
