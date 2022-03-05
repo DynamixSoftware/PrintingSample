@@ -1,7 +1,11 @@
 package com.dynamixsoftware.printingsample;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
+
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,6 +60,13 @@ class FilesUtils {
 
     static File getFile(Context context, String filename) {
         return new File(getFilesDir(context), filename);
+    }
+
+    static Uri getFileUriWithPermission(Context context, String filename) {
+        File file = FilesUtils.getFile(context, filename);
+        Uri uri = FileProvider.getUriForFile(context, "com.dynamixsoftware.printingsample.fileprovider", file);
+        context.grantUriPermission("com.dynamixsoftware.printhand", uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        return uri;
     }
 
     private static File getFilesDir(Context context) {

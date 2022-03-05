@@ -9,7 +9,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,6 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import com.dynamixsoftware.intentapi.IDocument;
 import com.dynamixsoftware.intentapi.IJob;
@@ -34,10 +37,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 
 public class IntentApiFragment extends Fragment implements View.OnClickListener {
 
@@ -220,13 +219,13 @@ public class IntentApiFragment extends Fragment implements View.OnClickListener 
                 }
                 break;
             case R.id.print_image:
-                intentApi.print(Uri.parse("file://" + FilesUtils.getFilePath(requireContext(), FilesUtils.FILE_PNG)), "image/png", "from printing sample");
+                intentApi.print(FilesUtils.getFileUriWithPermission(requireContext(), FilesUtils.FILE_PNG), "image/png", "from printing sample");
                 break;
             case R.id.print_file:
-                intentApi.print(Uri.parse("file://" + FilesUtils.getFilePath(requireContext(), FilesUtils.FILE_DOC)), "application/msword", "from printing sample");
+                intentApi.print(FilesUtils.getFileUriWithPermission(requireContext(), FilesUtils.FILE_DOC), "application/msword", "from printing sample");
                 break;
             case R.id.show_file_preview:
-                intentApi.showFilePreview(Uri.parse("file://" + FilesUtils.getFilePath(requireContext(), FilesUtils.FILE_DOC)), "application/msword", 0);
+                intentApi.showFilePreview(FilesUtils.getFileUriWithPermission(requireContext(), FilesUtils.FILE_DOC), "application/msword", 0);
                 break;
             case R.id.print_with_your_rendering:
                 try {
@@ -446,7 +445,7 @@ public class IntentApiFragment extends Fragment implements View.OnClickListener 
                 break;
             case R.id.print_image_with_print_hand_rendering_without_ui:
                 try {
-                    intentApi.print("PrintingSample", "image/png", Uri.parse("file://" + FilesUtils.getFilePath(requireContext(), FilesUtils.FILE_PNG)));
+                    intentApi.print("PrintingSample", "image/png", FilesUtils.getFileUriWithPermission(requireContext(), FilesUtils.FILE_PNG));
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -462,14 +461,14 @@ public class IntentApiFragment extends Fragment implements View.OnClickListener 
                 break;
             case R.id.print_file_with_print_hand_rendering_without_ui:
                 try {
-                    intentApi.print("PrintingSample", "application/ms-word", Uri.parse("file://" + FilesUtils.getFilePath(requireContext(), FilesUtils.FILE_DOC)));
+                    intentApi.print("PrintingSample", "application/ms-word", FilesUtils.getFileUriWithPermission(requireContext(), FilesUtils.FILE_DOC));
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.print_protected_file_with_print_hand_rendering_without_ui:
                 try {
-                    intentApi.print("PrintingSample", "application/pdf", Uri.parse("file://" + FilesUtils.getFilePath(requireContext(), FilesUtils.FILE_PDF)));
+                    intentApi.print("PrintingSample", "application/pdf", FilesUtils.getFileUriWithPermission(requireContext(), FilesUtils.FILE_PDF));
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
