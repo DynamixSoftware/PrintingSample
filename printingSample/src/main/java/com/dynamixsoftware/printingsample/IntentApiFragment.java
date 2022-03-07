@@ -59,6 +59,48 @@ public class IntentApiFragment extends Fragment implements View.OnClickListener 
                 @Override
                 public void onServiceConnected() {
                     toastInMainThread(appContext, "Service connected");
+                    try {
+                        intentApi.setPrintCallback(new IPrintCallback.Stub() {
+                            @Override
+                            public void startingPrintJob() {
+                                toastInMainThread(appContext, "startingPrintJob");
+                            }
+
+                            @Override
+                            public void start() {
+                                toastInMainThread(appContext, "start");
+                            }
+
+                            @Override
+                            public void sendingPage(int pageNum, int progress) {
+                                toastInMainThread(appContext, "sendingPage number " + pageNum + ", progress " + progress);
+                            }
+
+                            @Override
+                            public void preparePage(int pageNum) {
+                                toastInMainThread(appContext, "preparePage number " + pageNum);
+                            }
+
+                            @Override
+                            public boolean needCancel() {
+                                toastInMainThread(appContext, "needCancel");
+                                // If you need to cancel printing send true
+                                return false;
+                            }
+
+                            @Override
+                            public void finishingPrintJob() {
+                                toastInMainThread(appContext, "finishingPrintJob");
+                            }
+
+                            @Override
+                            public void finish(Result result, int pagesPrinted) {
+                                toastInMainThread(appContext, "finish, Result " + result + "; Result type " + result.getType() + "; Result message " + result.getType().getMessage() + "; pages printed " + pagesPrinted);
+                            }
+                        });
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -86,48 +128,6 @@ public class IntentApiFragment extends Fragment implements View.OnClickListener 
                 @Override
                 public void onError(Result result) {
                     toastInMainThread(appContext, "error, Result " + result + "; Result type " + result.getType());
-                }
-            });
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        try {
-            intentApi.setPrintCallback(new IPrintCallback.Stub() {
-                @Override
-                public void startingPrintJob() {
-                    toastInMainThread(appContext, "startingPrintJob");
-                }
-
-                @Override
-                public void start() {
-                    toastInMainThread(appContext, "start");
-                }
-
-                @Override
-                public void sendingPage(int pageNum, int progress) {
-                    toastInMainThread(appContext, "sendingPage number " + pageNum + ", progress " + progress);
-                }
-
-                @Override
-                public void preparePage(int pageNum) {
-                    toastInMainThread(appContext, "preparePage number " + pageNum);
-                }
-
-                @Override
-                public boolean needCancel() {
-                    toastInMainThread(appContext, "needCancel");
-                    // If you need to cancel printing send true
-                    return false;
-                }
-
-                @Override
-                public void finishingPrintJob() {
-                    toastInMainThread(appContext, "finishingPrintJob");
-                }
-
-                @Override
-                public void finish(Result result, int pagesPrinted) {
-                    toastInMainThread(appContext, "finish, Result " + result + "; Result type " + result.getType() + "; Result message " + result.getType().getMessage() + "; pages printed " + pagesPrinted);
                 }
             });
         } catch (RemoteException e) {
