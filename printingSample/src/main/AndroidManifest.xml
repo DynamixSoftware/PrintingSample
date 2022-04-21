@@ -2,6 +2,12 @@
 <manifest package="com.dynamixsoftware.printingsample"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <queries>
+        <package android:name="com.dynamixsoftware.printhand" />
+        <package android:name="com.dynamixsoftware.printhand.premium" />
+        <package android:name="com.dynamixsoftware.printhand.service" />
+    </queries>
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
